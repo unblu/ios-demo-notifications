@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "ios-sdk-xcframeworks",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/unblu/ios-sdk-xcframeworks.git",
+      "state" : {
+        "revision" : "563fff5f06639b8e0177c90765f440fb32e4d43b",
+        "version" : "4.7.5"
+      }
+    },
+    {
+      "identity" : "specs",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/webrtc-sdk/Specs.git",
+      "state" : {
+        "revision" : "a69a33e85d747cd5f1a993b783489ef08454ad7f",
+        "version" : "104.5112.9"
+      }
+    }
+  ],
+  "version" : 2
+}

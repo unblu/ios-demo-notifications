@@ -5,7 +5,13 @@
 import SwiftUI
 import UIKit
 
-struct RepresentedMyView: UIViewRepresentable {
+
+
+class UnbluUiState : ObservableObject {
+    @Published var unbluView: UIView?
+}
+
+struct RepresentedUnbluView: UIViewRepresentable {
     typealias UIViewType = UIView
     let view: UIView
     
@@ -22,34 +28,45 @@ struct RepresentedMyView: UIViewRepresentable {
 }
 
 struct ContentView: View {
-    @State private var pin: Int = 0
-    @State private var showPin = true
-
+    @State var unbluState =  UnbluUiState()
+    @State private var isStarted = false
+    @State private var loading = false
     var body: some View {
         VStack(alignment: .center) {
-            if showPin {
-                HStack {
-                    Text("Enter pin")
-                        .font(.largeTitle)
-                    TextField(
-                        "",
-                        value: $pin,
-                        format: .number
-                    ).font(.largeTitle.monospacedDigit())
-                        .textFieldStyle(.roundedBorder)
-                        .frame(width: 200)
-                        .fixedSize()
-                        .keyboardType(.numberPad)
-                }
-                Button("Start") {
-                    AppDelegate.instance.startUnbluView(pin)
-                    self.showPin = false
-                }.font(.largeTitle)
-            } else {
-                RepresentedMyView(AppDelegate.instance.getUnbluView())
-                    .padding()
+            if loading {
+                ZStack{
+                    ProgressView {
+                        Text("Loading...")
+                            .font(.title2)
+                    }
+                }.frame(width: 120, height: 120, alignment: .center)
             }
-        }.frame(maxWidth: .infinity)
+            if isStarted, let view = unbluState.unbluView {
+                ZStack(alignment: .topTrailing) {
+                    RepresentedUnbluView(view)
+                        .padding(EdgeInsets(top: 0,leading: 0,bottom: 0,trailing: 0))
+                }
+            }
+            Button(isStarted ? "Stop": "Start" ) {
+                if !isStarted {
+                    loading.toggle()
+                    AppDelegate.instance.startUnbluView() {
+                        loading.toggle()
+                        self.unbluState.unbluView = AppDelegate.instance.unbluVisitor?.view
+                        self.isStarted.toggle()
+                    }
+                } else {
+                    loading.toggle()
+                    AppDelegate.instance.stopUnbluView() {
+                        loading.toggle()
+                        unbluState.unbluView = nil
+                        self.isStarted.toggle()
+                    }
+                }
+            }.font(.largeTitle)
+        }.padding(EdgeInsets(top: 5,leading: 5,bottom: 10,trailing: 5))
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+        .shadow(color: .gray, radius: 5, x: 0, y: 5)
     }
 }
 

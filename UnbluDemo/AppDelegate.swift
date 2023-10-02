@@ -5,24 +5,28 @@
 import Foundation
 import UIKit
 import UnbluCoreSDK
-import UnbluFirebaseNotificationModule
 import UnbluMobileCoBrowsingModule
+import UnbluFirebaseNotificationModule
 import FirebaseMessaging
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     static private(set) var instance: AppDelegate! = nil
-
+    
+    let serverUrl = ""
+    let serverKey = ""
     var callModule: UnbluCallModuleApi?
     var unbluVisitor: UnbluVisitorClient?
     var mobileCoBrowsingModule: UnbluMobileCoBrowsingModuleApi?
-    
     var userNotificationCenter = NotificationCenterDelegate()
     var coordinator: FirebaseDelegate?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         AppDelegate.instance = self
         if  createClient() {
+            // Uncomment the following line if you are using APNs
+            // UIApplication.shared.registerForRemoteNotifications()
+            
+            // Comment out the following line if you are using APNs
             coordinator?.application(application, didFinishLaunchingWithOptions: launchOptions)
         }
         return true
@@ -30,7 +34,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      
     // swizzling disabled (Info.plist FirebaseAppDelegateProxyEnabled: false)
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        // Comment out the following line if you are using APNs
         Messaging.messaging().apnsToken = deviceToken;
+        
+        // Uncomment below if you are using APNs
+        // let apnsToken = deviceToken.map { String(format: "%02x", $0 as CVarArg) }.joined()
+        // UnbluNotificationApi.instance.deviceToken = apnsToken
     }
 
     //Called when received a background remote notification.
@@ -43,6 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         } catch {
             // if this not an unblu notification , call default implementation
+            // Comment out the following line if you are using APNs
             coordinator?.on_application(application, didReceiveRemoteNotification: userInfo)
         }
     }
@@ -56,8 +66,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             try UnbluNotificationApi.instance.handleRemoteNotification(userInfo: userInfo,withCompletionHandler: {_ in
                 // if it is endCall or readMessage notifications (silent)
             })
+            print("unblu remote notification")
         } catch {
+            print("not unblu remote notification")
             // if this not an unblu notification , call default implementation
+            // Comment out the following line if you are using APNs
             coordinator?.on_application(application, didReceiveRemoteNotification: userInfo, fetchCompletionHandler: completionHandler)
         }
     }
@@ -68,11 +81,11 @@ extension AppDelegate {
     
     func createClient() -> Bool {
         // Set Icon for CallKit UI
-        // UnbluClientConfiguration.callKitProviderIconResourceName = "go-to-app"
+        UnbluClientConfiguration.callKitProviderIconResourceName = "go-to-app"
 
         //1. Register modules
         var config = createUnbluConfig()
-        config.unbluPushNotificationVersion = .Encrypted
+        config.unbluPushNotificationVersion = .Encrypted  // replace with .EncryptedService if you want use the NotificationService class
 
         callModule = UnbluCallModuleProvider.create()
         try! config.register(module: callModule!)
@@ -91,43 +104,37 @@ extension AppDelegate {
         unbluVisitor?.logLevel = .verbose
         unbluVisitor?.enableDebugOutput = true
         unbluVisitor?.visitorDelegate = VisitorClientDelegate()
+            
+         //4. Init Firebase , register for Push notifications
+         // Comment out the following line if you are using APNs
+         coordinator = FirebaseDelegate()
        
-        //4. Init Firebase , register for Push notifications
-        coordinator = FirebaseDelegate()
-    
         return true
     }
     
-    func createUnbluConfig() -> UnbluClientConfiguration {
-        var configuration = UnbluClientConfiguration(unbluBaseUrl: "http://192.168.1.159:7777",
-                                                     apiKey:  "MZsy5sFESYqU7MawXZgR_w",
+    func createUnbluConfig() -> UnbluClientConfiguration {  
+        return UnbluClientConfiguration(unbluBaseUrl: serverUrl,
+                                                     apiKey:  serverKey,
                                                      preferencesStorage: UserDefaultsPreferencesStorage(),
                                                      fileDownloadHandler: UnbluDefaultFileDownloadHandler(),
                                                      externalLinkHandler: UnbluDefaultExternalLinkHandler())        
-        return configuration
     }
     
     func getUnbluView() -> UIView {
         return unbluVisitor?.view ?? UIView()
     }
     
-    func startUnbluView(_ pin: Int) {
+    func startUnbluView(_ completion: @escaping ()->Void) {
+        if unbluVisitor == nil {
+           _ = createClient()
+        }
         unbluVisitor?.isInitialized(success: { isInitialized in
             if !isInitialized {
                 // Send APNs PushKit token and FCM token to the Unblu server
                 self.unbluVisitor?.start { result in
                     switch result {
                     case .success:
-                        if pin > 0 {
-                            self.unbluVisitor?.joinConversation(pin: String(pin)) { result in
-                                switch result {
-                                case .success(let conversation):
-                                    print("Joined conversation: \(conversation.id)")
-                                case .failure(let error):
-                                    print("Error while joining conversation: \(error)")
-                                }
-                            }
-                        }
+                        completion()
                         print("Unblu started")
                     case .failure(let error):
                         print("Unblu failed with error: \(error)")
@@ -135,6 +142,30 @@ extension AppDelegate {
                 }
             }
         })
+    }
+    
+    func stopUnbluView(_ completion: @escaping ()->Void) {
+        unbluVisitor?.isInitialized(success: { isInitialized in
+            if isInitialized {
+                self.unbluVisitor?.stop { result in
+                    switch result {
+                    case .success:
+                        self.freeUnbluMemory()
+                        completion()
+                        print("Unblu stoppped")
+                    case .failure(let error):
+                        print("Unblu failed with error: \(error)")
+                    }
+                }
+            }
+        })
+    }
+    
+    func freeUnbluMemory() {
+        // assigning nil frees memory
+        self.callModule = nil
+        self.unbluVisitor  = nil
+        self.mobileCoBrowsingModule = nil
     }
 }
 
