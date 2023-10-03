@@ -20,6 +20,7 @@
 		3232404D29966E1600995CBC /* CoBrowsingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3232404C29966E1600995CBC /* CoBrowsingDelegate.swift */; };
 		323240532996879400995CBC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 323240522996879400995CBC /* GoogleService-Info.plist */; };
 		323240552996E5BC00995CBC /* NotificationCenterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323240542996E5BC00995CBC /* NotificationCenterDelegate.swift */; };
+		3253C09B2ACBF75000C154CE /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3253C09A2ACBF75000C154CE /* README.md */; };
 		32695BE42991385900A518D9 /* UnbluDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32695BE32991385900A518D9 /* UnbluDemoApp.swift */; };
 		32695BE62991385900A518D9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32695BE52991385900A518D9 /* ContentView.swift */; };
 		32695BE82991385A00A518D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32695BE72991385A00A518D9 /* Assets.xcassets */; };
@@ -76,6 +77,7 @@
 		323240542996E5BC00995CBC /* NotificationCenterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterDelegate.swift; sourceTree = "<group>"; };
 		3246815D29B4B58B00B569DD /* libFirebaseMessaging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseMessaging.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3246815F29B4B59D00B569DD /* libFirebaseMessaging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseMessaging.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3253C09A2ACBF75000C154CE /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		32695BE02991385900A518D9 /* UnbluDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnbluDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32695BE32991385900A518D9 /* UnbluDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnbluDemoApp.swift; sourceTree = "<group>"; };
 		32695BE52991385900A518D9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 		32695BE22991385900A518D9 /* UnbluDemo */ = {
 			isa = PBXGroup;
 			children = (
+				3253C09A2ACBF75000C154CE /* README.md */,
 				320A234A2ACB22BF0006B502 /* FirebaseDelegate.swift */,
 				323240522996879400995CBC /* GoogleService-Info.plist */,
 				3232404F2996814400995CBC /* Info.plist */,
@@ -301,6 +304,7 @@
 			files = (
 				323240532996879400995CBC /* GoogleService-Info.plist in Resources */,
 				32695BEB2991385A00A518D9 /* Preview Assets.xcassets in Resources */,
+				3253C09B2ACBF75000C154CE /* README.md in Resources */,
 				32695BE82991385A00A518D9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
