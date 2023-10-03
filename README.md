@@ -1,5 +1,5 @@
 
-# Demo app showing how to work with Unblu SDK with push notifications
+# Demo app showing how to work with push notifications
 
 
 # Installing
