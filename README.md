@@ -15,7 +15,7 @@ The Unblu SDK is added via Swift PM.
 
 # Notification Service extension
 
-The appendix contains an example implementation of identity service extensions.
+The application contains an example implementation of notfication service extensions.
 
 For additinal information about , refer to  [Notification service extension](https://www.unblu.com/en/docs/latest/knowledge-base/mobile/ios/ios-integration.html#notification-service-extension).
 
