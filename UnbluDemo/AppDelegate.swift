@@ -23,8 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         AppDelegate.instance = self
         if  createClient() {
-            // Uncomment the following line if you are using APNs
-            // UIApplication.shared.registerForRemoteNotifications()
+            // Uncomment the following lines if you are using APNs
+            // UNUserNotificationCenter.current().requestAuthorization(options: [.sound, .alert, .badge]) { (granted, error) in
+            // if error == nil{
+            //   UIApplication.shared.registerForRemoteNotifications()
+            // }}
             
             // Comment out the following line if you are using APNs
             coordinator?.application(application, didFinishLaunchingWithOptions: launchOptions)
