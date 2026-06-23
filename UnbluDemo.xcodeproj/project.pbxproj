@@ -18,7 +18,6 @@
 		3232404929966D2C00995CBC /* VisitorClientDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3232404829966D2C00995CBC /* VisitorClientDelegate.swift */; };
 		3232404B29966DB700995CBC /* CallModuleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3232404A29966DB700995CBC /* CallModuleDelegate.swift */; };
 		3232404D29966E1600995CBC /* CoBrowsingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3232404C29966E1600995CBC /* CoBrowsingDelegate.swift */; };
-		323240532996879400995CBC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 323240522996879400995CBC /* GoogleService-Info.plist */; };
 		323240552996E5BC00995CBC /* NotificationCenterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323240542996E5BC00995CBC /* NotificationCenterDelegate.swift */; };
 		3253C09B2ACBF75000C154CE /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3253C09A2ACBF75000C154CE /* README.md */; };
 		32695BE42991385900A518D9 /* UnbluDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32695BE32991385900A518D9 /* UnbluDemoApp.swift */; };
@@ -26,7 +25,7 @@
 		32695BE82991385A00A518D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32695BE72991385A00A518D9 /* Assets.xcassets */; };
 		32695BEB2991385A00A518D9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32695BEA2991385A00A518D9 /* Preview Assets.xcassets */; };
 		32695C0A29913DF800A518D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32695C0929913DF800A518D9 /* AppDelegate.swift */; };
-		32A44A2A29A37CB100FD5962 /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = 32A44A2929A37CB100FD5962 /* WebRTC */; };
+		328F783A2FEA96DD00BFC002 /* LiveKitWebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = 328F78392FEA96DD00BFC002 /* LiveKitWebRTC */; };
 		D07FCAF8AC378661A0FAA46F /* Pods_UnbluDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ACEE99C416DAFC56F964AFE /* Pods_UnbluDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,7 +72,6 @@
 		3232404C29966E1600995CBC /* CoBrowsingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoBrowsingDelegate.swift; sourceTree = "<group>"; };
 		3232404E2996813200995CBC /* UnbluDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnbluDemo.entitlements; sourceTree = "<group>"; };
 		3232404F2996814400995CBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		323240522996879400995CBC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		323240542996E5BC00995CBC /* NotificationCenterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterDelegate.swift; sourceTree = "<group>"; };
 		3246815D29B4B58B00B569DD /* libFirebaseMessaging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseMessaging.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3246815F29B4B59D00B569DD /* libFirebaseMessaging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseMessaging.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,7 +103,7 @@
 				320A23342ACAE8A90006B502 /* UnbluVonageWebRtcProvider in Frameworks */,
 				320A23302ACAE8A90006B502 /* UnbluLiveKitWebRtcProvider in Frameworks */,
 				320A23322ACAE8A90006B502 /* UnbluMobileSDK in Frameworks */,
-				32A44A2A29A37CB100FD5962 /* WebRTC in Frameworks */,
+				328F783A2FEA96DD00BFC002 /* LiveKitWebRTC in Frameworks */,
 				D07FCAF8AC378661A0FAA46F /* Pods_UnbluDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,7 +163,6 @@
 			children = (
 				3253C09A2ACBF75000C154CE /* README.md */,
 				320A234A2ACB22BF0006B502 /* FirebaseDelegate.swift */,
-				323240522996879400995CBC /* GoogleService-Info.plist */,
 				3232404F2996814400995CBC /* Info.plist */,
 				3232404E2996813200995CBC /* UnbluDemo.entitlements */,
 				32695BE32991385900A518D9 /* UnbluDemoApp.swift */,
@@ -239,11 +236,11 @@
 			);
 			name = UnbluDemo;
 			packageProductDependencies = (
-				32A44A2929A37CB100FD5962 /* WebRTC */,
 				320A232D2ACAE8A90006B502 /* UnbluCallKitModule */,
 				320A232F2ACAE8A90006B502 /* UnbluLiveKitWebRtcProvider */,
 				320A23312ACAE8A90006B502 /* UnbluMobileSDK */,
 				320A23332ACAE8A90006B502 /* UnbluVonageWebRtcProvider */,
+				328F78392FEA96DD00BFC002 /* LiveKitWebRTC */,
 			);
 			productName = UnbluDemo;
 			productReference = 32695BE02991385900A518D9 /* UnbluDemo.app */;
@@ -277,8 +274,8 @@
 			);
 			mainGroup = 32695BD72991385800A518D9;
 			packageReferences = (
-				32A44A2829A37CB100FD5962 /* XCRemoteSwiftPackageReference "Specs" */,
 				320A232C2ACAE8A90006B502 /* XCRemoteSwiftPackageReference "ios-sdk-xcframeworks" */,
+				328F78382FEA96DD00BFC002 /* XCRemoteSwiftPackageReference "webrtc-xcframework" */,
 			);
 			productRefGroup = 32695BE12991385900A518D9 /* Products */;
 			projectDirPath = "";
@@ -302,7 +299,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				323240532996879400995CBC /* GoogleService-Info.plist in Resources */,
 				32695BEB2991385A00A518D9 /* Preview Assets.xcassets in Resources */,
 				3253C09B2ACBF75000C154CE /* README.md in Resources */,
 				32695BE82991385A00A518D9 /* Assets.xcassets in Resources */,
@@ -320,9 +316,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-UnbluDemo/Pods-UnbluDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-UnbluDemo/Pods-UnbluDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -395,7 +395,7 @@
 				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = A8Q2RF48P3;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -427,7 +427,7 @@
 				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = A8Q2RF48P3;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -577,7 +577,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "\"UnbluDemo/Preview Content\"";
-				DEVELOPMENT_TEAM = A8Q2RF48P3;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -615,7 +615,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "\"UnbluDemo/Preview Content\"";
-				DEVELOPMENT_TEAM = A8Q2RF48P3;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -679,15 +679,15 @@
 			repositoryURL = "https://github.com/unblu/ios-sdk-xcframeworks.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.7.5;
+				minimumVersion = 4.13.5;
 			};
 		};
-		32A44A2829A37CB100FD5962 /* XCRemoteSwiftPackageReference "Specs" */ = {
+		328F78382FEA96DD00BFC002 /* XCRemoteSwiftPackageReference "webrtc-xcframework" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/webrtc-sdk/Specs.git";
+			repositoryURL = "https://github.com/livekit/webrtc-xcframework";
 			requirement = {
 				kind = exactVersion;
-				version = 104.5112.9;
+				version = 125.6422.11;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -718,10 +718,10 @@
 			package = 320A232C2ACAE8A90006B502 /* XCRemoteSwiftPackageReference "ios-sdk-xcframeworks" */;
 			productName = UnbluMobileSDK;
 		};
-		32A44A2929A37CB100FD5962 /* WebRTC */ = {
+		328F78392FEA96DD00BFC002 /* LiveKitWebRTC */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 32A44A2829A37CB100FD5962 /* XCRemoteSwiftPackageReference "Specs" */;
-			productName = WebRTC;
+			package = 328F78382FEA96DD00BFC002 /* XCRemoteSwiftPackageReference "webrtc-xcframework" */;
+			productName = LiveKitWebRTC;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

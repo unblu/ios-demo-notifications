@@ -6,7 +6,7 @@ import Foundation
 import UIKit
 import UnbluCoreSDK
 import UnbluMobileCoBrowsingModule
-import UnbluFirebaseNotificationModule
+//import UnbluFirebaseNotificationModule
 import FirebaseMessaging
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,19 +18,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var unbluVisitor: UnbluVisitorClient?
     var mobileCoBrowsingModule: UnbluMobileCoBrowsingModuleApi?
     var userNotificationCenter = NotificationCenterDelegate()
-    var coordinator: FirebaseDelegate?
+   // var coordinator: FirebaseDelegate?
 
+    let clientDelegate = VisitorClientDelegate()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        print("AppDelegate: did finish launching")
         AppDelegate.instance = self
         if  createClient() {
-            // Uncomment the following lines if you are using APNs
-            // UNUserNotificationCenter.current().requestAuthorization(options: [.sound, .alert, .badge]) { (granted, error) in
-            // if error == nil{
-            //   UIApplication.shared.registerForRemoteNotifications()
-            // }}
+             UNUserNotificationCenter.current().requestAuthorization(options: [.sound, .alert, .badge]) { (granted, error) in
+             if error == nil{
+               UIApplication.shared.registerForRemoteNotifications()
+             }}
             
             // Comment out the following line if you are using APNs
-            coordinator?.application(application, didFinishLaunchingWithOptions: launchOptions)
+          //  coordinator?.application(application, didFinishLaunchingWithOptions: launchOptions)
         }
         return true
     }
@@ -38,11 +40,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // swizzling disabled (Info.plist FirebaseAppDelegateProxyEnabled: false)
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         // Comment out the following line if you are using APNs
-        Messaging.messaging().apnsToken = deviceToken;
+        //Messaging.messaging().apnsToken = deviceToken;
         
         // Uncomment below if you are using APNs
-        // let apnsToken = deviceToken.map { String(format: "%02x", $0 as CVarArg) }.joined()
-        // UnbluNotificationApi.instance.deviceToken = apnsToken
+         let apnsToken = deviceToken.map { String(format: "%02x", $0 as CVarArg) }.joined()
+         UnbluNotificationApi.instance.deviceToken = apnsToken
+         print("AppDelegate: registered for remote notifications (APNs token: \(apnsToken))")
     }
 
     //Called when received a background remote notification.
@@ -53,10 +56,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             try UnbluNotificationApi.instance.handleRemoteNotification(userInfo: userInfo,withCompletionHandler: {_ in
                 // if it is endCall or readMessage notifications (silent)
             })
+            print("AppDelegate: handled unblu remote notification")
         } catch {
+            print("AppDelegate: not an unblu remote notification")
             // if this not an unblu notification , call default implementation
             // Comment out the following line if you are using APNs
-            coordinator?.on_application(application, didReceiveRemoteNotification: userInfo)
+            //coordinator?.on_application(application, didReceiveRemoteNotification: userInfo)
         }
     }
 
@@ -74,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("not unblu remote notification")
             // if this not an unblu notification , call default implementation
             // Comment out the following line if you are using APNs
-            coordinator?.on_application(application, didReceiveRemoteNotification: userInfo, fetchCompletionHandler: completionHandler)
+           // coordinator?.on_application(application, didReceiveRemoteNotification: userInfo, fetchCompletionHandler: completionHandler)
         }
     }
 }
@@ -106,11 +111,11 @@ extension AppDelegate {
         unbluVisitor = Unblu.createVisitorClient(withConfiguration: config)
         unbluVisitor?.logLevel = .verbose
         unbluVisitor?.enableDebugOutput = true
-        unbluVisitor?.visitorDelegate = VisitorClientDelegate()
+        unbluVisitor?.visitorDelegate = clientDelegate
             
          //4. Init Firebase , register for Push notifications
          // Comment out the following line if you are using APNs
-         coordinator = FirebaseDelegate()
+       //  coordinator = FirebaseDelegate()
        
         return true
     }

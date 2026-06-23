@@ -1,7 +1,7 @@
 //
 //  FirebaseDelegate.swift
 //
-
+/*
 import Foundation
 
 import UnbluFirebaseNotificationModule
@@ -18,3 +18,4 @@ class FirebaseDelegate: UnbluFirebaseUIApplicationDelegate {
         print("not unblu remote notification")
     }
 }
+*/

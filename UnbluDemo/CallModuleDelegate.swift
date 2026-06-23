@@ -6,9 +6,17 @@ import Foundation
 import UnbluCoreSDK
 
 class CallModuleDelegate: UnbluCallModuleDelegate {
-    
-    func unbluCallModuleDidStartCall(_ unbluCallModuleApi: UnbluCallModuleApi) {
+    // Called when the Picture-in-Picture button is tapped; let the SDK handle it.
+    func unbluMobileCallModuleHandlePiPButtonClick(_ unbluCallModuleApi: any UnbluCoreSDK.UnbluCallModuleApi) -> UnbluCoreSDK.ButtonInterceptorAction {
+        print("CallModuleDelegate: PiP button clicked")
+        return .useInternalHandler
     }
-    func unbluCallModuleDidEndCall(_ unbluCallModuleApi: UnbluCallModuleApi) {        
+
+
+    func unbluCallModuleDidStartCall(_ unbluCallModuleApi: UnbluCallModuleApi) {
+        print("CallModuleDelegate: call started")
+    }
+    func unbluCallModuleDidEndCall(_ unbluCallModuleApi: UnbluCallModuleApi) {
+        print("CallModuleDelegate: call ended")
     }
 }
